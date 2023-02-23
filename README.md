@@ -4,6 +4,8 @@ Big head is online product finder with images, you can create your profile, sear
 
 ## Getting Started
 
+[Technologies and reasons](https://docs.google.com/document/d/1ytCn95e_glMUcIp26JDEkreeQs4imNxvm8WECdNCgW0/edit?usp=sharing) Doc in persian.
+
 ### Prerequisites
 
 Node.js version >= 14.0.0
