@@ -1,6 +1,3 @@
-import { useRecoilState } from 'recoil';
-import AuthAtom from './atoms/AuthAtom';
-
 import {
   Button,
   FormControl,
@@ -11,8 +8,22 @@ import {
 } from '@mui/joy';
 import ModeToggle from '../../shared/components/ModeToggle';
 import { Link } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
+import useAuthState from './state/useAuthState';
 
 const LoginPage = () => {
+  const [auth, setAuth] = useAuthState();
+  const { mutateAsync: login, isLoading } = useMutation({
+    mutationFn: async (data: { email: string; password: string }) => {
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      return {
+        token: '1234567890',
+      };
+    },
+    onSuccess: data => {
+      setAuth(data);
+    },
+  });
   return (
     <Sheet
       sx={{
@@ -52,28 +63,41 @@ const LoginPage = () => {
             </Typography>
             <Typography level="body2">برای ادامه وارد شوید</Typography>
           </div>
-          <FormControl>
-            <FormLabel>ایمیل</FormLabel>
-            <Input
-              name="email"
-              type="email"
-              placeholder="johndoe@email.com"
-              sx={{ direction: 'ltr' }}
-            />
-          </FormControl>
-          <FormControl>
-            <FormLabel>رمز عبور</FormLabel>
-            <Input
-              name="password"
-              type="password"
-              placeholder="password"
-              sx={{ direction: 'ltr' }}
-            />
-          </FormControl>
+          <form
+            onSubmit={e => {
+              e.preventDefault();
+              const formData = new FormData(e.target as HTMLFormElement);
+              login({
+                email: formData.get('email') as string,
+                password: formData.get('password') as string,
+              });
+            }}>
+            <FormControl>
+              <FormLabel>ایمیل</FormLabel>
+              <Input
+                name="email"
+                type="email"
+                placeholder="johndoe@email.com"
+                sx={{ direction: 'ltr' }}
+              />
+            </FormControl>
+            <FormControl>
+              <FormLabel>رمز عبور</FormLabel>
+              <Input
+                name="password"
+                type="password"
+                placeholder="password"
+                sx={{ direction: 'ltr' }}
+              />
+            </FormControl>
 
-          <Button sx={{ mt: 1 }} type="submit">
-            ورود
-          </Button>
+            <Button
+              sx={{ mt: 2, width: '100%' }}
+              type="submit"
+              loading={isLoading}>
+              ورود
+            </Button>
+          </form>
           <Typography
             endDecorator={<Link to="/register">ثبت‌نام</Link>}
             fontSize="sm"

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import AuthAtom from '../modules/auth/atoms/AuthAtom';
+import AuthAtom from '../modules/auth/state/AuthAtom';
 import { Navigate, Outlet, useNavigate } from 'react-router-dom';
 
 const PrivateRoute = () => {
