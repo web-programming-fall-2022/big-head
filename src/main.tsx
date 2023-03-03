@@ -6,18 +6,23 @@ import { RecoilRoot } from 'recoil';
 import { RouterProvider } from 'react-router-dom';
 import { router } from './router';
 import { CssBaseline } from '@mui/joy';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 const customTheme = extendTheme({
   fontFamily: {
     body: 'Vazirmatn, Roboto, sans-serif',
   },
 });
 
+const queryClient = new QueryClient();
+
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <CssVarsProvider theme={customTheme}>
       <CssBaseline />
       <RecoilRoot>
-        <RouterProvider router={router} />
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+        </QueryClientProvider>
       </RecoilRoot>
     </CssVarsProvider>
   </React.StrictMode>
