@@ -10,18 +10,21 @@ import ModeToggle from '../../shared/components/ModeToggle';
 import { Link, useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import useAlert from '../../shared/useAlert';
+import { AuthServiceService, v1RegisterRequest } from '../../api';
 
 const RegisterPage = () => {
-  const [alert, setAlert] = useAlert();
+  const [_, setAlert] = useAlert();
   const navigate = useNavigate();
   const { mutateAsync: register, isLoading } = useMutation({
-    mutationFn: async (data: { email: string; password: string }) => {
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      return true;
+    mutationFn: async (data: v1RegisterRequest) => {
+      return AuthServiceService.authServiceRegister(data);
     },
     onSuccess: data => {
       setAlert('ثبت‌نام با موفقیت انجام شد');
       navigate('/login');
+    },
+    onError: (error: any) => {
+      setAlert(String(error.message));
     },
   });
   return (
@@ -70,6 +73,10 @@ const RegisterPage = () => {
               register({
                 email: formData.get('email') as string,
                 password: formData.get('password') as string,
+                first_name: formData.get('first_name') as string,
+                last_name: formData.get('last_name') as string,
+                gender: 'M',
+                phone_number: formData.get('phone_number') as string,
               });
             }}>
             <FormControl>
@@ -78,6 +85,23 @@ const RegisterPage = () => {
                 name="email"
                 type="email"
                 placeholder="johndoe@email.com"
+                sx={{ direction: 'ltr' }}
+              />
+            </FormControl>
+            <FormControl>
+              <FormLabel>نام</FormLabel>
+              <Input name="first_name" type="text" placeholder="بنیامین" />
+            </FormControl>
+            <FormControl>
+              <FormLabel>نام خانوادگی</FormLabel>
+              <Input name="last_name" type="text" placeholder="بیضایی" />
+            </FormControl>
+            <FormControl>
+              <FormLabel>شماره تماس</FormLabel>
+              <Input
+                name="phone_number"
+                type="tel"
+                placeholder="+989931203930"
                 sx={{ direction: 'ltr' }}
               />
             </FormControl>
