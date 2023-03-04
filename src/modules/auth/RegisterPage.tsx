@@ -11,15 +11,19 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import useAlert from '../../shared/useAlert';
 import { AuthServiceService, v1RegisterRequest } from '../../api';
+import useAuthState from './state/useAuthState';
+import Auth from './types/Auth';
 
 const RegisterPage = () => {
   const [_, setAlert] = useAlert();
+  const [__, setAuthLogin] = useAuthState();
   const navigate = useNavigate();
   const { mutateAsync: register, isLoading } = useMutation({
     mutationFn: async (data: v1RegisterRequest) => {
       return AuthServiceService.authServiceRegister(data);
     },
     onSuccess: data => {
+      setAuthLogin(data as Auth);
       setAlert('ثبت‌نام با موفقیت انجام شد');
       navigate('/login');
     },
@@ -107,15 +111,6 @@ const RegisterPage = () => {
             </FormControl>
             <FormControl>
               <FormLabel>رمز عبور</FormLabel>
-              <Input
-                name="password"
-                type="password"
-                placeholder="password"
-                sx={{ direction: 'ltr' }}
-              />
-            </FormControl>
-            <FormControl>
-              <FormLabel>تکرار رمز عبور</FormLabel>
               <Input
                 name="password"
                 type="password"

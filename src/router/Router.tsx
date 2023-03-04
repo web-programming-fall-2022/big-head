@@ -1,6 +1,7 @@
 import { createBrowserRouter, Outlet, RouteObject } from 'react-router-dom';
 import LoginPage from '../modules/auth/LoginPage';
 import RegisterPage from '../modules/auth/RegisterPage';
+import HomePage from '../modules/HomePage';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 
@@ -13,7 +14,7 @@ const routes: RouteObject[] = [
         children: [
           {
             path: '/',
-            element: <>Home</>,
+            element: <HomePage />,
           },
         ],
       },

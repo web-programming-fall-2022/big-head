@@ -10,18 +10,16 @@ import ModeToggle from '../../shared/components/ModeToggle';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import useAuthState from './state/useAuthState';
+import { AuthServiceService, v1LoginRequest, v1LoginResponse } from '../../api';
 
 const LoginPage = () => {
-  const [auth, setAuth] = useAuthState();
+  const [auth, setAuthLogin] = useAuthState();
   const { mutateAsync: login, isLoading } = useMutation({
-    mutationFn: async (data: { email: string; password: string }) => {
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      return {
-        token: '1234567890',
-      };
+    mutationFn: async (data: v1LoginRequest) => {
+      return AuthServiceService.authServiceLogin(data);
     },
     onSuccess: data => {
-      setAuth(data);
+      setAuthLogin(data as v1LoginResponse);
     },
   });
   return (
