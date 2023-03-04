@@ -10,16 +10,22 @@ const App = () => {
     <>
       <Box
         sx={{
-          width: '400px',
-          position: 'fixed',
-          opacity: alertState?.show ? 1 : 0,
-          top: 0,
-          right: 0,
-          zIndex: 1000,
-          p: 2,
-          transition: 'opacity 1s ease-in-out',
+          display: 'flex',
+          flexDirection: 'row',
         }}>
-        <Alert>{alertState?.message}</Alert>
+        <Box
+          sx={{
+            maxWidth: '400px',
+            position: 'fixed',
+            opacity: alertState?.show ? 1 : 0,
+            top: 0,
+            right: 0,
+            zIndex: 1000,
+            p: 2,
+            transition: 'opacity 1s ease-in-out',
+          }}>
+          <Alert>{alertState?.message}</Alert>
+        </Box>
       </Box>
 
       <RouterProvider router={router} />
