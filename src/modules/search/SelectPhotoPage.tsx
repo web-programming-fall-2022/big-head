@@ -8,11 +8,17 @@ import ReactCrop, {
 } from 'react-image-crop';
 import { canvasPreview } from './canvasPreview';
 import { useDebounceEffect } from './useDebounceEffect';
+import ResultItem from './ResultItem';
 
 import 'react-image-crop/dist/ReactCrop.css';
-import { Box, Button, Input, Typography } from '@mui/joy';
+import { Box, Button, Input, Typography, Grid } from '@mui/joy';
 import { useMutation } from '@tanstack/react-query';
-import { SearchServiceService, v1Ranker } from '../../api';
+import {
+  SearchServiceService,
+  v1Ranker,
+  v1SearchRequest,
+  v1SearchResponse,
+} from '../../api';
 
 // This is to demonstate how to make and center a % aspect crop
 // which is a bit trickier so we use some helper functions.
@@ -36,6 +42,81 @@ function centerAspectCrop(
   );
 }
 
+// const DOMMY_DATA = [
+//   {
+//     id: 1,
+//     title: 'در جستجوی زمان',
+//     url: 'https://www.digikala.com/product/dkp-7943292/برچسب-تخم-مرغ-تزیینی-مدل-هفت-سین-نوروز-rd-مجموعه-60-عددی/',
+//     status: 'marketable',
+//     image_url:
+//       'https://dkstatics-public.digikala.com/digikala-products/2ce89596111dece459ac930e94cbd15bf0b9072f_1645712256.jpg?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp/quality,q_80',
+//     rate: {
+//       count: 3.9,
+//     },
+//     price: '1200000',
+//   },
+//   {
+//     id: 2,
+//     title: 'در جستجوی زمان',
+//     url: 'https://www.digikala.com/product/dkp-7943292/برچسب-تخم-مرغ-تزیینی-مدل-هفت-سین-نوروز-rd-مجموعه-60-عددی/',
+//     status: 'marketable',
+//     image_url: "https://dkstatics-public.digikala.com/digikala-products/895833307888f62e31dfb561c808f16e49e7e987_1615039495.jpg?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp/quality,q_80",
+
+//     rate: {
+//       count: 3.9,
+//     },
+//     price: '1200000',
+//   },
+//   {
+//     id: 3,
+//     title: 'در جستجوی زمان',
+//     url: 'https://www.digikala.com/product/dkp-7943292/برچسب-تخم-مرغ-تزیینی-مدل-هفت-سین-نوروز-rd-مجموعه-60-عددی/',
+//     status: 'ناموجود',
+//     image_url:
+//       'https://dkstatics-public.digikala.com/digikala-products/2ce89596111dece459ac930e94cbd15bf0b9072f_1645712256.jpg?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp/quality,q_80',
+//     rate: {
+//       count: 3.9,
+//     },
+//     price: '1200000',
+//   },
+//   {
+//     id: 4,
+//     title: 'در جستجوی زمان',
+//     url: 'https://www.digikala.com/product/dkp-7943292/برچسب-تخم-مرغ-تزیینی-مدل-هفت-سین-نوروز-rd-مجموعه-60-عددی/',
+//     status: 'ناموجود',
+//     image_url:
+//       'https://dkstatics-public.digikala.com/digikala-products/2ce89596111dece459ac930e94cbd15bf0b9072f_1645712256.jpg?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp/quality,q_80',
+//     rate: {
+//       count: 3.9,
+//     },
+//     price: '1200000',
+//   },
+//   {
+//     id: 5,
+//     title: 'در جستجوی زمان',
+//     url: 'https://www.digikala.com/product/dkp-7943292/برچسب-تخم-مرغ-تزیینی-مدل-هفت-سین-نوروز-rd-مجموعه-60-عددی/',
+//     status: 'ناموجود',
+//     image_url:
+//       'https://dkstatics-public.digikala.com/digikala-products/2ce89596111dece459ac930e94cbd15bf0b9072f_1645712256.jpg?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp/quality,q_80',
+//     rate: {
+//       count: 3.9,
+//     },
+//     price: '1200000',
+//   },
+//   {
+//     id: 6,
+//     title: 'در جستجوی زمان',
+//     url: 'https://www.digikala.com/product/dkp-7943292/برچسب-تخم-مرغ-تزیینی-مدل-هفت-سین-نوروز-rd-مجموعه-60-عددی/',
+//     status: 'ناموجود',
+//     image_url:
+//       'https://dkstatics-public.digikala.com/digikala-products/2ce89596111dece459ac930e94cbd15bf0b9072f_1645712256.jpg?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp/quality,q_80',
+//     rate: {
+//       count: 3.9,
+//     },
+//     price: '1200000',
+//   },
+// ];
+
 export default function SelectPhotoPage() {
   const [imgSrc, setImgSrc] = useState('');
   const previewCanvasRef = useRef<HTMLCanvasElement>(null);
@@ -43,9 +124,16 @@ export default function SelectPhotoPage() {
   const [crop, setCrop] = useState<Crop>();
   const [completedCrop, setCompletedCrop] = useState<PixelCrop>();
   const [dataUrl, setDataUrl] = useState<string>();
+  const [searchResult, setSearchResult] = useState<v1SearchResponse>();
 
   const { mutateAsync: search, isLoading: isSearching } = useMutation({
-    mutationFn: SearchServiceService.searchServiceSearch,
+    // mutationFn: SearchServiceService.searchServiceSearch,
+    mutationFn: async (data: v1SearchRequest) => {
+      return SearchServiceService.searchServiceSearch(data);
+    },
+    onSuccess: data => {
+      setSearchResult(data as v1SearchResponse);
+    },
   });
 
   function onSelectFile(e: React.ChangeEvent<HTMLInputElement>) {
@@ -201,6 +289,13 @@ export default function SelectPhotoPage() {
           جستجو
         </Button>
       </Box>
+      {/* <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} sx={{ flexGrow: 1, width: "100%", padding: "2rem" }}>
+        {DOMMY_DATA.map(product => (
+          <Grid xs={4} sm={4} md={4} key={product.id} sx={{display: "flex", justifyContent: "center"}}>
+            <ResultItem title={product.title} url={product.url} status={product.status} imageUrl={product.image_url} rateCount={product.rate.count} price={product.price} />
+    </Grid>
+  ))}
+</Grid> */}
     </Box>
   );
 }
