@@ -3,6 +3,5 @@
 /* eslint-disable */
 
 export type v1CropRequest = {
-    image?: string;
+  image?: string;
 };
-

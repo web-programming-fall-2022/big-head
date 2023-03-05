@@ -5,6 +5,5 @@
 import type { v1Product } from './v1Product';
 
 export type v1AsyncSearchResponse = {
-    product?: v1Product;
+  product?: v1Product;
 };
-

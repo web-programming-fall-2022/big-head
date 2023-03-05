@@ -3,7 +3,6 @@
 /* eslint-disable */
 
 export type v1Category = {
-    title?: string;
-    url?: string;
+  title?: string;
+  url?: string;
 };
-

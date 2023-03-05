@@ -3,7 +3,6 @@
 /* eslint-disable */
 
 export type v1Position = {
-    'x'?: number;
-    'y'?: number;
+  x?: number;
+  y?: number;
 };
-
