@@ -2,6 +2,7 @@ import { createBrowserRouter, Outlet, RouteObject } from 'react-router-dom';
 import LoginPage from '../modules/auth/LoginPage';
 import RegisterPage from '../modules/auth/RegisterPage';
 import HomePage from '../modules/HomePage';
+import CropPage from '../modules/search/SelectPhotoPage';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 
@@ -14,7 +15,7 @@ const routes: RouteObject[] = [
         children: [
           {
             path: '/',
-            element: <HomePage />,
+            element: <CropPage />,
           },
         ],
       },
