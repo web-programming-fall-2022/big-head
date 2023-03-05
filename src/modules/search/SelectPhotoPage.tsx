@@ -42,6 +42,7 @@ export default function SelectPhotoPage() {
   const imgRef = useRef<HTMLImageElement>(null);
   const [crop, setCrop] = useState<Crop>();
   const [completedCrop, setCompletedCrop] = useState<PixelCrop>();
+  const [dataUrl, setDataUrl] = useState<string>();
 
   const { mutateAsync: search, isLoading: isSearching } = useMutation({
     mutationFn: SearchServiceService.searchServiceSearch,
@@ -67,7 +68,13 @@ export default function SelectPhotoPage() {
         previewCanvasRef.current
       ) {
         // We use canvasPreview as it's much faster than imgPreview.
-        canvasPreview(imgRef.current, previewCanvasRef.current, completedCrop);
+        setDataUrl(
+          await canvasPreview(
+            imgRef.current,
+            previewCanvasRef.current,
+            completedCrop
+          )
+        );
       }
     },
     100,
@@ -75,61 +82,73 @@ export default function SelectPhotoPage() {
   );
 
   function onSubmitCrop() {
-    if (completedCrop) {
-      // create a canvas element to draw the cropped image
-      const canvas = document.createElement('canvas');
-
-      // get the image element
-      const image = imgRef.current;
-
-      // draw the image on the canvas
-      if (image) {
-        const crop = completedCrop;
-        const scaleX = image.naturalWidth / image.width;
-        const scaleY = image.naturalHeight / image.height;
-        const ctx = canvas.getContext('2d');
-        const pixelRatio = window.devicePixelRatio;
-        canvas.width = crop.width * pixelRatio * scaleX;
-        canvas.height = crop.height * pixelRatio * scaleY;
-
-        if (ctx) {
-          ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
-          ctx.imageSmoothingQuality = 'high';
-
-          ctx.drawImage(
-            image,
-            crop.x * scaleX,
-            crop.y * scaleY,
-            crop.width * scaleX,
-            crop.height * scaleY,
-            0,
-            0,
-            crop.width * scaleX,
-            crop.height * scaleY
-          );
-        }
-
-        const base64Image = canvas.toDataURL('image/png'); // can be changed to jpeg/jpg etc
-
-        if (base64Image) {
-          // @ts-ignore
-          const fileType = base64Image.split(';')[0].split(':')[1];
-
-          // const buffer = Buffer.from(
-          //   base64Image.replace(/^data:image\/\w+;base64,/, ''),
-          //   'base64'
-          // );
-          // const file = new File([buffer], 'fileName', { type: fileType });
-          search({
-            image: base64Image.replace(/^data:image\/\w+;base64,/, ''),
-            params: {
-              top_k: 10,
-              ranker: v1Ranker.FIRST_IMAGE,
-            },
-          });
-        }
-      }
+    if (dataUrl === null) {
+      return;
     }
+    search({
+      image: dataUrl!.replace(/^data:image\/\w+;base64,/, ''),
+      params: {
+        top_k: 10,
+        ranker: v1Ranker.FIRST_IMAGE,
+      },
+    });
+    // if (completedCrop) {
+    //   // create a canvas element to draw the cropped image
+    //   const canvas = document.createElement('canvas');
+
+    //   // get the image element
+    //   const image = imgRef.current;
+
+    //   // draw the image on the canvas
+    //   if (image) {
+    //     const crop = completedCrop;
+    //     const scaleX = image.naturalWidth / image.width;
+    //     const scaleY = image.naturalHeight / image.height;
+    //     const ctx = canvas.getContext('2d');
+    //     const pixelRatio = window.devicePixelRatio;
+    //     canvas.width = crop.width * pixelRatio * scaleX;
+    //     canvas.height = crop.height * pixelRatio * scaleY;
+
+    //     if (ctx) {
+    //       ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+    //       ctx.imageSmoothingQuality = 'high';
+
+    //       const scaleResize = 256 / crop.width;
+
+    //       console.log(
+    //         'crop.width * scaleX * scaleResize',
+    //         crop.width * scaleX * scaleResize
+    //       );
+
+    //       ctx.drawImage(
+    //         image,
+    //         crop.x * scaleX,
+    //         crop.y * scaleY,
+    //         crop.width * scaleX * scaleResize,
+    //         crop.height * scaleY * scaleResize,
+    //         0,
+    //         0,
+    //         crop.width * scaleX * scaleResize,
+    //         crop.height * scaleY * scaleResize
+    //       );
+    //     }
+
+    //     const base64Image = canvas.toDataURL('image/png'); // can be changed to jpeg/jpg etc
+    //     // compress the image
+
+    //     if (base64Image) {
+    //       // @ts-ignore
+    //       const fileType = base64Image.split(';')[0].split(':')[1];
+
+    //       // const buffer = Buffer.from(
+    //       //   base64Image.replace(/^data:image\/\w+;base64,/, ''),
+    //       //   'base64'
+    //       // );
+    //       // const file = new File([buffer], 'fileName', { type: fileType });
+
+    //     }
+    //   }
+    // }
   }
 
   return (
@@ -171,45 +190,16 @@ export default function SelectPhotoPage() {
             </ReactCrop>
           </>
         )}
-        {!!completedCrop && (
-          <>
-            <Typography
-              level="body1"
-              component="p"
-              sx={{
-                textAlign: 'center',
-                my: '1rem',
-              }}>
-              تصویری که جستجو خواهد شد:{' '}
-            </Typography>
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-              <canvas
-                ref={previewCanvasRef}
-                style={{
-                  border: '1px solid black',
-                  objectFit: 'contain',
-                  width: completedCrop.width,
-                  height: completedCrop.height,
-                }}
-              />
-            </Box>
-            <Button
-              sx={{
-                mt: '1rem',
-                width: '100%',
-              }}
-              loading={isSearching}
-              onClick={onSubmitCrop}>
-              جستجو
-            </Button>
-          </>
-        )}
+
+        <Button
+          sx={{
+            my: '1rem',
+            width: '100%',
+          }}
+          loading={isSearching}
+          onClick={onSubmitCrop}>
+          جستجو
+        </Button>
       </Box>
     </Box>
   );
