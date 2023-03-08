@@ -13,6 +13,7 @@ import 'react-image-crop/dist/ReactCrop.css';
 import { Box, Button, Input, Typography } from '@mui/joy';
 import { useMutation } from '@tanstack/react-query';
 import { SearchServiceService, v1Ranker } from '../../api';
+import WithHeaderLayout from '../../shared/layout/WithHeaderLayout';
 
 // This is to demonstate how to make and center a % aspect crop
 // which is a bit trickier so we use some helper functions.
@@ -152,55 +153,57 @@ export default function SelectPhotoPage() {
   }
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        overflow: 'scroll',
-      }}>
-      <Typography
-        level="h4"
-        component="h4"
+    <WithHeaderLayout>
+      <Box
         sx={{
-          textAlign: 'center',
-          my: '1rem',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          overflow: 'scroll',
         }}>
-        برای شروع یک عکس انتخاب کنید
-      </Typography>
-      <Box sx={{ maxWidth: '500px' }}>
-        <Input type="file" onChange={onSelectFile} />
-        {!!imgSrc && (
-          <>
-            <Typography
-              level="body1"
-              component="p"
-              sx={{
-                textAlign: 'center',
-                my: '1rem',
-              }}>
-              تصویر انتخابی خود را کراپ کنید
-            </Typography>
-            <ReactCrop
-              crop={crop}
-              onChange={(_, percentCrop) => setCrop(percentCrop)}
-              onComplete={c => setCompletedCrop(c)}>
-              <img ref={imgRef} alt="Crop me" src={imgSrc} />
-            </ReactCrop>
-          </>
-        )}
-
-        <Button
+        <Typography
+          level="h4"
+          component="h4"
           sx={{
+            textAlign: 'center',
             my: '1rem',
-            width: '100%',
-          }}
-          loading={isSearching}
-          onClick={onSubmitCrop}>
-          جستجو
-        </Button>
+          }}>
+          برای شروع یک عکس انتخاب کنید
+        </Typography>
+        <Box sx={{ maxWidth: '500px' }}>
+          <Input type="file" onChange={onSelectFile} />
+          {!!imgSrc && (
+            <>
+              <Typography
+                level="body1"
+                component="p"
+                sx={{
+                  textAlign: 'center',
+                  my: '1rem',
+                }}>
+                تصویر انتخابی خود را کراپ کنید
+              </Typography>
+              <ReactCrop
+                crop={crop}
+                onChange={(_, percentCrop) => setCrop(percentCrop)}
+                onComplete={c => setCompletedCrop(c)}>
+                <img ref={imgRef} alt="Crop me" src={imgSrc} />
+              </ReactCrop>
+            </>
+          )}
+
+          <Button
+            sx={{
+              my: '1rem',
+              width: '100%',
+            }}
+            loading={isSearching}
+            onClick={onSubmitCrop}>
+            جستجو
+          </Button>
+        </Box>
       </Box>
-    </Box>
+    </WithHeaderLayout>
   );
 }
