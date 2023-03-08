@@ -50,8 +50,8 @@ const LoginPage = () => {
             display: 'flex',
             flexDirection: 'column',
             gap: 2,
-            borderRadius: 'sm',
-            boxShadow: 'md',
+            borderRadius: '8px',
+            boxShadow: '16',
           }}
           variant="outlined">
           <ModeToggle />
@@ -98,7 +98,7 @@ const LoginPage = () => {
           </form>
           <Typography
             endDecorator={<Link to="/register">ثبت‌نام</Link>}
-            fontSize="sm"
+            fontSize="12"
             sx={{ alignSelf: 'center' }}>
             حساب کاربری ندارید؟
           </Typography>

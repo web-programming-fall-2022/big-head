@@ -59,8 +59,8 @@ const RegisterPage = () => {
             display: 'flex',
             flexDirection: 'column',
             gap: 2,
-            borderRadius: 'sm',
-            boxShadow: 'md',
+            borderRadius: '8px',
+            boxShadow: '16',
           }}
           variant="outlined">
           <ModeToggle />
@@ -128,7 +128,7 @@ const RegisterPage = () => {
           </form>
           <Typography
             endDecorator={<Link to="/login">ورود</Link>}
-            fontSize="sm"
+            fontSize="12px"
             sx={{ alignSelf: 'center' }}>
             حساب کاربری دارید؟
           </Typography>
