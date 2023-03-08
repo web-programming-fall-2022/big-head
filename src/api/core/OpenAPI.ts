@@ -19,7 +19,6 @@ export type OpenAPIConfig = {
 };
 
 function getToken() {
-  console.log('getToken', localStorage.getItem('auth'));
   return localStorage.getItem('auth') == null
     ? undefined
     : JSON.parse(localStorage.getItem('auth')!).authToken;

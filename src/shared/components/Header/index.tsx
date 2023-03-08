@@ -28,10 +28,6 @@ function Header(props: HeaderProps) {
         }}>
         <ProfileLink />
 
-        <Typography level="h4" component="h1">
-          <b>بزرگ کله</b>
-        </Typography>
-
         <LogoutButton />
       </Sheet>
     );
@@ -50,7 +46,9 @@ function Header(props: HeaderProps) {
           padding: '0 16px',
           boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.24)',
         }}>
-        <Button onClick={() => navigate(-1)}> بازگشت </Button>
+        <Button onClick={() => navigate(-1)} variant="soft">
+          <span>بازگشت</span>
+        </Button>
 
         <Typography level="h5" component="h1">
           <b>{title || 'بزرگ کله'}</b>

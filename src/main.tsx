@@ -7,8 +7,7 @@ import { RecoilRoot } from 'recoil';
 import { CssBaseline } from '@mui/joy';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import App from './App';
-import { RouterProvider } from 'react-router-dom';
-import { router } from './router';
+
 const customTheme = extendTheme({
   fontFamily: {
     body: 'Vazirmatn, Roboto, sans-serif',

@@ -13,7 +13,6 @@ const WithHeaderLayout: FC<Props> = (props: Props) => {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        height: '100vh',
       }}>
       <Header type={type} title={title} />
       <Sheet
@@ -21,10 +20,11 @@ const WithHeaderLayout: FC<Props> = (props: Props) => {
           flex: 1,
           overflow: 'auto',
           WebkitOverflowScrolling: 'touch',
+          overflowY: 'scroll',
           position: 'relative',
           display: 'flex',
           flexDirection: 'column',
-          margin: '64px 0 0',
+          mt: '64px',
         }}>
         {props.children}
       </Sheet>
