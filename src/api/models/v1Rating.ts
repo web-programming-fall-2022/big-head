@@ -3,7 +3,6 @@
 /* eslint-disable */
 
 export type v1Rating = {
-    rate?: number;
-    count?: number;
+  rate?: number;
+  count?: number;
 };
-

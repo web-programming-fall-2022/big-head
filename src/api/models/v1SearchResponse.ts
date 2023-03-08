@@ -5,6 +5,5 @@
 import type { v1Product } from './v1Product';
 
 export type v1SearchResponse = {
-    products?: Array<v1Product>;
+  products?: Array<v1Product>;
 };
-

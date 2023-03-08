@@ -11,7 +11,7 @@ function UserInfoPage() {
     AuthServiceService.authServiceUserInfo
   );
   return (
-    <WithHeaderLayout type='title' title='پروفایل'>
+    <WithHeaderLayout type="title" title="پروفایل">
       <Sheet
         sx={{
           display: 'flex',
