@@ -26,7 +26,7 @@ function getToken() {
 
 export const OpenAPI = () => {
   return {
-    BASE: 'http://digi.pouyaesmaili.ir:8082',
+    BASE: 'https://digivision.pouyaesmaili.ir',
     VERSION: '1.0',
     WITH_CREDENTIALS: false,
     CREDENTIALS: 'include',
