@@ -25,15 +25,17 @@ function getToken() {
     : JSON.parse(localStorage.getItem('auth')!).authToken;
 }
 
-export const OpenAPI: OpenAPIConfig = {
-  BASE: 'http://digivision.pouyaesmaili.ir:8082',
-  VERSION: '1.0',
-  WITH_CREDENTIALS: false,
-  CREDENTIALS: 'include',
-  USERNAME: undefined,
-  PASSWORD: undefined,
-  HEADERS: {
-    Authorization: getToken(),
-  },
-  ENCODE_PATH: undefined,
+export const OpenAPI = () => {
+  return {
+    BASE: 'http://digi.pouyaesmaili.ir:8082',
+    VERSION: '1.0',
+    WITH_CREDENTIALS: false,
+    CREDENTIALS: 'include',
+    USERNAME: undefined,
+    PASSWORD: undefined,
+    HEADERS: {
+      Authorization: getToken(),
+    },
+    ENCODE_PATH: undefined,
+  } as OpenAPIConfig;
 };

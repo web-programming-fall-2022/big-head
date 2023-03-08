@@ -9,7 +9,6 @@ function HomePage() {
   useQuery({
     queryKey: ['search'],
     queryFn: async () => {
-      console.log(OpenAPI);
       return SearchServiceService.searchServiceSearch({});
     },
   });
