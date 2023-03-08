@@ -1,13 +1,13 @@
 import React, { useState, useRef } from 'react';
 
 import ReactCrop, { Crop, PixelCrop } from 'react-image-crop';
-import { canvasPreview } from './canvasPreview';
-import { useDebounceEffect } from './useDebounceEffect';
+import { useDebounceEffect } from '../../shared/utils/useDebounceEffect';
 import 'react-image-crop/dist/ReactCrop.css';
 import { Box, Button, Input, Typography } from '@mui/joy';
 import { useMutation } from '@tanstack/react-query';
 import { SearchServiceService, v1Ranker } from '../../api';
 import WithHeaderLayout from '../../shared/layout/WithHeaderLayout';
+import { canvasPreview } from '../../shared/utils/canvasPreview';
 
 export default function SelectPhotoPage() {
   const [imgSrc, setImgSrc] = useState('');
