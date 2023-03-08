@@ -9,18 +9,10 @@ interface Props extends HeaderProps {
 const WithHeaderLayout: FC<Props> = (props: Props) => {
   const { type, children, title } = props;
   return (
-    <Sheet
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-      }}>
+    <>
       <Header type={type} title={title} />
       <Sheet
         sx={{
-          flex: 1,
-          overflow: 'auto',
-          WebkitOverflowScrolling: 'touch',
-          overflowY: 'scroll',
           position: 'relative',
           display: 'flex',
           flexDirection: 'column',
@@ -28,7 +20,7 @@ const WithHeaderLayout: FC<Props> = (props: Props) => {
         }}>
         {props.children}
       </Sheet>
-    </Sheet>
+    </>
   );
 };
 

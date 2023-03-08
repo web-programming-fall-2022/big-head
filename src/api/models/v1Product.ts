@@ -11,7 +11,7 @@ export type v1Product = {
   title?: string;
   url?: string;
   status?: string;
-  image_url?: string;
+  imageUrl?: string;
   rate?: v1Rating;
   categories?: Array<v1Category>;
   price?: string;

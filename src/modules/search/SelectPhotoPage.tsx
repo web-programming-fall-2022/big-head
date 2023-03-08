@@ -3,11 +3,12 @@ import React, { useState, useRef } from 'react';
 import ReactCrop, { Crop, PixelCrop } from 'react-image-crop';
 import { useDebounceEffect } from '../../shared/utils/useDebounceEffect';
 import 'react-image-crop/dist/ReactCrop.css';
-import { Box, Button, Input, Typography } from '@mui/joy';
+import { Box, Button, Grid, Input, Typography } from '@mui/joy';
 import { useMutation } from '@tanstack/react-query';
-import { SearchServiceService, v1Ranker } from '../../api';
+import { SearchServiceService, v1Ranker, v1SearchResponse } from '../../api';
 import WithHeaderLayout from '../../shared/layout/WithHeaderLayout';
 import { canvasPreview } from '../../shared/utils/canvasPreview';
+import ResultItem from './SearchResultItem';
 
 export default function SelectPhotoPage() {
   const [imgSrc, setImgSrc] = useState('');
@@ -16,9 +17,17 @@ export default function SelectPhotoPage() {
   const [crop, setCrop] = useState<Crop>();
   const [completedCrop, setCompletedCrop] = useState<PixelCrop>();
   const [dataUrl, setDataUrl] = useState<string>();
+  const [showSearchResults, setShowSearchResults] = useState<boolean>(false);
 
-  const { mutateAsync: search, isLoading: isSearching } = useMutation({
+  const {
+    mutateAsync: search,
+    isLoading: isSearching,
+    data: searchResult,
+  } = useMutation({
     mutationFn: SearchServiceService.searchServiceSearch,
+    onSuccess: () => {
+      setShowSearchResults(true);
+    },
   });
 
   function onSelectFile(e: React.ChangeEvent<HTMLInputElement>) {
@@ -67,73 +76,113 @@ export default function SelectPhotoPage() {
 
   return (
     <WithHeaderLayout>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          overflow: 'scroll',
-        }}>
-        <Typography
-          level="h4"
-          component="h4"
-          sx={{
-            textAlign: 'center',
-            my: '1rem',
-          }}>
-          برای شروع یک عکس انتخاب کنید
-        </Typography>
-        <Box sx={{ maxWidth: '500px' }}>
-          <Input type="file" onChange={onSelectFile} />
-          {!!imgSrc && (
-            <>
-              <Typography
-                level="body1"
-                component="p"
-                sx={{
-                  textAlign: 'center',
-                  my: '1rem',
-                }}>
-                تصویر انتخابی خود را کراپ کنید
-              </Typography>
-              <ReactCrop
-                crop={crop}
-                onChange={(_, percentCrop) => {
-                  console.log('onChange');
-                  setCrop(percentCrop);
-                }}
-                onComplete={c => {
-                  console.log('onComplete');
-                  setCompletedCrop(c);
-                }}>
-                <img ref={imgRef} alt="Crop me" src={imgSrc} />
-              </ReactCrop>
-            </>
-          )}
-          {!!completedCrop?.width && (
-            <canvas
-              ref={previewCanvasRef}
-              style={{
-                border: '1px solid white',
-                objectFit: 'contain',
-                width: '256px',
-                height: '256px',
-              }}
-            />
-          )}
+      {showSearchResults && (
+        <>
+          <Typography
+            level="h4"
+            component="h4"
+            sx={{
+              textAlign: 'center',
+              my: '1rem',
+            }}>
+            نتایج جستجو
+          </Typography>
 
+          <Grid
+            container
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+            spacing={{ xs: 2, md: 3 }}
+            columns={{ xs: 4, sm: 8, md: 12 }}>
+            {(searchResult as v1SearchResponse).products!.map(product => (
+              <ResultItem key={product.id} product={product} />
+            ))}
+          </Grid>
           <Button
             sx={{
               my: '1rem',
-              width: '100%',
+              mx: '3rem',
             }}
             loading={isSearching}
-            onClick={onSubmitCrop}>
-            جستجو
+            onClick={() => {
+              setShowSearchResults(false);
+              setImgSrc('');
+            }}>
+            جستجوی جدید
           </Button>
+        </>
+      )}
+      {!showSearchResults && (
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            minHeight: '100vh',
+          }}>
+          <Typography
+            level="h4"
+            component="h4"
+            sx={{
+              textAlign: 'center',
+              my: '1rem',
+            }}>
+            برای شروع یک عکس انتخاب کنید
+          </Typography>
+          <Box sx={{ maxWidth: '500px' }}>
+            <Input type="file" onChange={onSelectFile} />
+            {!!imgSrc && (
+              <>
+                <Typography
+                  level="body1"
+                  component="p"
+                  sx={{
+                    textAlign: 'center',
+                    my: '1rem',
+                  }}>
+                  تصویر انتخابی خود را کراپ کنید
+                </Typography>
+                <ReactCrop
+                  crop={crop}
+                  onChange={(_, percentCrop) => {
+                    console.log('onChange');
+                    setCrop(percentCrop);
+                  }}
+                  onComplete={c => {
+                    console.log('onComplete');
+                    setCompletedCrop(c);
+                  }}>
+                  <img ref={imgRef} alt="Crop me" src={imgSrc} />
+                </ReactCrop>
+              </>
+            )}
+            {!!imgSrc && !!completedCrop?.width && (
+              <canvas
+                ref={previewCanvasRef}
+                style={{
+                  border: '1px solid white',
+                  objectFit: 'contain',
+                  width: '256px',
+                  height: '256px',
+                }}
+              />
+            )}
+
+            <Button
+              sx={{
+                my: '1rem',
+                width: '100%',
+              }}
+              loading={isSearching}
+              disabled={imgSrc === ''}
+              onClick={onSubmitCrop}>
+              جستجو
+            </Button>
+          </Box>
         </Box>
-      </Box>
+      )}
     </WithHeaderLayout>
   );
 }

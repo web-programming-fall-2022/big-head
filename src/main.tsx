@@ -1,10 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Button from '@mui/joy/Button';
-import { CssVarsProvider, extendTheme } from '@mui/joy/styles';
 import { RecoilRoot } from 'recoil';
 
-import { CssBaseline } from '@mui/joy';
+import { CssBaseline, CssVarsProvider, extendTheme } from '@mui/joy';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import App from './App';
 
