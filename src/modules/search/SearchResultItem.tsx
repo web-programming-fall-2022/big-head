@@ -20,10 +20,8 @@ function ResultItem(props: Props) {
     mutationFn: async (data: v1AddItemToFavoritesRequest) => {
       return FavoriteServiceService.favoriteServiceAddItemToFavorites(data);
     },
-    onSuccess: success => {
-      if (success) {
-        setAlert('محصول با موفقیت به لیست علاقه‌مندی‌ها اضافه شد!');
-      }
+    onSuccess: () => {
+      setAlert('محصول با موفقیت به لیست علاقه‌مندی‌ها اضافه شد!');
     },
   });
 

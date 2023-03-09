@@ -1,5 +1,5 @@
 import { Box, Button, Typography, Grid } from '@mui/joy';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { FavoriteServiceService, v1Product } from '../../api';
 import useAlert from '../../shared/useAlert';
 
@@ -11,13 +11,13 @@ function FavoriteItem(props: Props) {
   const { product } = props;
   const { title, imageUrl, price, rate, status, url } = product;
   const [_, setAlert] = useAlert();
+  const queryClient = useQueryClient();
 
   const { mutateAsync: removeFromFavorites, isLoading } = useMutation({
     mutationFn: FavoriteServiceService.favoriteServiceRemoveItemFromFavorites,
-    onSuccess: success => {
-      if (success) {
-        setAlert('محصول با موفقیت از لیست علاقه‌مندی‌ها حذف شد!');
-      }
+    onSuccess: () => {
+      setAlert('محصول با موفقیت از لیست علاقه‌مندی‌ها حذف شد!');
+      queryClient.invalidateQueries(['favorites']);
     },
   });
 
