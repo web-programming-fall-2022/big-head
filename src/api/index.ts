@@ -29,6 +29,11 @@ export type { v1SearchRequest } from './models/v1SearchRequest';
 export type { v1SearchResponse } from './models/v1SearchResponse';
 export type { v1UserInfoRequest } from './models/v1UserInfoRequest';
 export type { v1UserInfoResponse } from './models/v1UserInfoResponse';
+export type { v1AddItemToFavoritesRequest } from './models/v1AddItemToFavoritesRequest';
+export type { v1AddItemToFavoritesResponse } from './models/v1AddItemToFavoritesResponse';
+export type { v1GetFavoritesResponse } from './models/v1GetFavoritesResponse';
+export type { v1RemoveItemFromFavoritesResponse } from './models/v1RemoveItemFromFavoritesResponse';
 
+export { FavoriteServiceService } from './services/FavoriteServiceService';
 export { AuthServiceService } from './services/AuthServiceService';
 export { SearchServiceService } from './services/SearchServiceService';
