@@ -22,6 +22,7 @@ function UserInfoPage() {
           justifyContent: 'center',
           gap: '5px',
           padding: '16px',
+          height: '100%',
         }}>
         {userLoading ? (
           <CircularProgress />

@@ -17,6 +17,9 @@ const WithHeaderLayout: FC<Props> = (props: Props) => {
           display: 'flex',
           flexDirection: 'column',
           mt: '64px',
+          height: 'calc(100vh - 64px)',
+
+          overflowY: 'auto',
         }}>
         {props.children}
       </Sheet>
