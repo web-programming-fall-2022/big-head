@@ -59,10 +59,13 @@ export class FavoriteServiceService {
    * @returns runtimeError An unexpected error response.
    * @throws ApiError
    */
-  public static favoriteServiceRemoveItemFromFavorites(
-    listName: string,
-    productId: number
-  ): CancelablePromise<v1RemoveItemFromFavoritesResponse | runtimeError> {
+  public static favoriteServiceRemoveItemFromFavorites({
+    listName,
+    productId,
+  }: {
+    listName: string;
+    productId: number;
+  }): CancelablePromise<v1RemoveItemFromFavoritesResponse | runtimeError> {
     return __request(OpenAPI(), {
       method: 'DELETE',
       url: '/api/v1/favorite/{list_name}/{product_id}',
