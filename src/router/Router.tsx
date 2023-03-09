@@ -4,8 +4,10 @@ import RegisterPage from '../modules/auth/RegisterPage';
 import UserInfoPage from '../modules/auth/UserInfoPage';
 import HomePage from '../modules/HomePage';
 import CropPage from '../modules/search/SelectPhotoPage';
+import SearchHistoryPage from '../modules/search/SearchHistoryPage';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
+import FavoritesPage from '../modules/favorites/FavoritesPage';
 
 const routes: RouteObject[] = [
   {
@@ -22,6 +24,14 @@ const routes: RouteObject[] = [
             path: '/user-info',
             element: <UserInfoPage />,
           },
+          {
+            path: '/search-history',
+            element: <SearchHistoryPage />,
+          },
+          {
+            path: '/favorites',
+            element: <FavoritesPage />
+          }
         ],
       },
       {
