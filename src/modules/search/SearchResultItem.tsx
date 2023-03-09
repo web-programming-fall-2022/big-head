@@ -26,7 +26,14 @@ function ResultItem(props: Props) {
         alt="image"
         style={{ width: '100%', padding: '8px', borderRadius: '8px 8px 0 0' }}
       />
-      <Typography level="body1" sx={{ alignSelf: 'flex-start', my: '1rem' }}>
+      <Typography
+        level="body1"
+        sx={{
+          alignSelf: 'flex-start',
+          my: '1rem',
+          height: '72px',
+          overflow: 'hidden',
+        }}>
         {title}
       </Typography>
       <Box
@@ -37,11 +44,11 @@ function ResultItem(props: Props) {
           margin: '8px 0 16px 0',
         }}>
         <Typography level="body2">
-          {status === 'marketable' ? `${price} تومان` : 'ناموجود'}
+          {status === 'marketable' ? `${price} ریال` : 'ناموجود'}
         </Typography>
-        <Typography level="body2">{`امتیاز: ${rate}`}</Typography>
+        <Typography level="body2">{`امتیاز: ${rate?.rate}`}</Typography>
       </Box>
-      <Button onClick={() => window.open(url, '_blank')}>
+      <Button sx={{ width: '100%' }} onClick={() => window.open(url, '_blank')}>
         رفتن به صفحه‌ی دیجی‌کالای محصول
       </Button>
     </Box>
