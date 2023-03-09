@@ -1,6 +1,10 @@
 import { Box, Button, Typography, Grid } from '@mui/joy';
 import { useMutation } from '@tanstack/react-query';
-import { FavoriteServiceService, v1AddItemToFavoritesRequest, v1Product } from '../../api';
+import {
+  FavoriteServiceService,
+  v1AddItemToFavoritesRequest,
+  v1Product,
+} from '../../api';
 import useAlert from '../../shared/useAlert';
 
 interface Props {
@@ -18,7 +22,7 @@ function ResultItem(props: Props) {
     },
     onSuccess: success => {
       if (success) {
-        setAlert('محصول با موفقیت به لیست علاقه‌مندی‌ها اضافه شد!')
+        setAlert('محصول با موفقیت به لیست علاقه‌مندی‌ها اضافه شد!');
       }
     },
   });
@@ -28,7 +32,7 @@ function ResultItem(props: Props) {
       list_name: 'favorites',
       product_id: product.id as number,
     });
-  }
+  };
   return (
     <Box
       sx={{
@@ -71,7 +75,10 @@ function ResultItem(props: Props) {
       <Button sx={{ width: '100%' }} onClick={() => window.open(url, '_blank')}>
         رفتن به صفحه‌ی دیجی‌کالای محصول
       </Button>
-      <Button sx={{ width: '100%', marginTop: '0.5rem' }} variant='outlined' onClick={addItemToFavorites}>
+      <Button
+        sx={{ width: '100%', marginTop: '0.5rem' }}
+        variant="outlined"
+        onClick={addItemToFavorites}>
         افزودن به علاقه‌مندی‌ها
       </Button>
     </Box>

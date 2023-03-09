@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  Avatar,
-  Button,
-  CircularProgress,
-  Grid,
-  Sheet,
-  Typography,
-} from '@mui/joy';
+import { CircularProgress, Grid, Sheet, Typography } from '@mui/joy';
 import WithHeaderLayout from '../../shared/layout/WithHeaderLayout';
 import { useQuery } from '@tanstack/react-query';
 import { FavoriteServiceService, v1GetFavoritesResponse } from '../../api';
