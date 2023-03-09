@@ -1,5 +1,7 @@
 import { Box, Button, Typography, Grid } from '@mui/joy';
-import { v1Product } from '../../api';
+import { useMutation } from '@tanstack/react-query';
+import { FavoriteServiceService, v1AddItemToFavoritesRequest, v1Product } from '../../api';
+import useAlert from '../../shared/useAlert';
 
 interface Props {
   product: v1Product;
@@ -8,6 +10,25 @@ interface Props {
 function ResultItem(props: Props) {
   const { product } = props;
   const { title, imageUrl, price, rate, status, url } = product;
+  const [_, setAlert] = useAlert();
+
+  const { mutateAsync: addToFavorites, isLoading } = useMutation({
+    mutationFn: async (data: v1AddItemToFavoritesRequest) => {
+      return FavoriteServiceService.favoriteServiceAddItemToFavorites(data);
+    },
+    onSuccess: success => {
+      if (success) {
+        setAlert('محصول با موفقیت به لیست علاقه‌مندی‌ها اضافه شد!')
+      }
+    },
+  });
+
+  const addItemToFavorites = () => {
+    addToFavorites({
+      list_name: 'favorites',
+      product_id: product.id as number,
+    });
+  }
   return (
     <Box
       sx={{
@@ -18,7 +39,6 @@ function ResultItem(props: Props) {
         display: '',
         flexDirection: 'column',
         maxWidth: '300px',
-        height: '500px',
         alignItems: 'center',
       }}>
       <img
@@ -50,6 +70,9 @@ function ResultItem(props: Props) {
       </Box>
       <Button sx={{ width: '100%' }} onClick={() => window.open(url, '_blank')}>
         رفتن به صفحه‌ی دیجی‌کالای محصول
+      </Button>
+      <Button sx={{ width: '100%', marginTop: '0.5rem' }} variant='outlined' onClick={addItemToFavorites}>
+        افزودن به علاقه‌مندی‌ها
       </Button>
     </Box>
   );
