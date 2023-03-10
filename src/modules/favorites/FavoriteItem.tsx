@@ -34,49 +34,55 @@ function FavoriteItem(props: Props) {
         borderRadius: '8px',
         margin: '0.5rem',
         padding: '1rem',
-        display: '',
-        flexDirection: 'column',
-        maxWidth: '300px',
+        display: 'flex',
         alignItems: 'center',
+        height: '143px',
       }}>
       <img
         src={imageUrl}
         alt="image"
-        style={{ width: '100%', borderRadius: '8px 8px 0 0' }}
+        style={{ height: '100px', borderRadius: '8px 8px 0 0' }}
       />
-      <Typography
-        level="body1"
-        sx={{
-          alignSelf: 'flex-start',
-          my: '1rem',
-          height: '72px',
-          overflow: 'hidden',
-        }}>
-        {title}
-      </Typography>
-      <Box
-        sx={{
-          width: '100%',
-          display: 'flex',
-          justifyContent: 'space-between',
-          margin: '8px 0 16px 0',
-        }}>
-        <Typography level="body2">
-          {status === 'marketable' ? `${price} ریال` : 'ناموجود'}
+      <Box sx={{ maxWidth: '200px', display: 'flex', flexDirection: 'column' }}>
+        <Typography
+          level="body1"
+          sx={{
+            width: '100%',
+            my: '0.5rem',
+            overflow: 'hidden',
+          }}>
+          {title}
         </Typography>
-        <Typography level="body2">{`امتیاز: ${rate?.rate}`}</Typography>
+        <Box
+          sx={{
+            width: '100%',
+            display: 'flex',
+          }}>
+          <Typography level="body2">
+            {`${
+              status === 'marketable' ? `${price} ریال` : 'ناموجود'
+            } | امتیاز: ${rate?.rate}`}
+          </Typography>
+        </Box>
       </Box>
-      <Button sx={{ width: '100%' }} onClick={() => window.open(url, '_blank')}>
-        رفتن به صفحه‌ی دیجی‌کالای محصول
-      </Button>
-      <Button
-        sx={{ width: '100%', marginTop: '0.5rem' }}
-        color="danger"
-        variant="outlined"
-        onClick={deleteItemFromFavorites}
-        loading={isLoading}>
-        حذف
-      </Button>
+      <Box
+        sx={{ display: 'flex', flexDirection: 'column', marginRight: '1rem' }}>
+        <Button
+          size="sm"
+          sx={{ width: '100%', fontSize: '12px' }}
+          onClick={() => window.open(url, '_blank')}>
+          صفحه‌ی دیجی‌کالا
+        </Button>
+        <Button
+          size="sm"
+          sx={{ width: '100%', marginTop: '0.5rem', fontSize: '12px' }}
+          color="danger"
+          variant="outlined"
+          onClick={deleteItemFromFavorites}
+          loading={isLoading}>
+          حذف
+        </Button>
+      </Box>
     </Box>
   );
 }
