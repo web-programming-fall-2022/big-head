@@ -3,10 +3,10 @@ import WithHeaderLayout from '../../shared/layout/WithHeaderLayout';
 
 function SearchHistoryPage() {
   return (
-      <WithHeaderLayout type="title" title="تاریخچه">
-        <span>تاریخچه</span>
-      </WithHeaderLayout>
-  )
+    <WithHeaderLayout type="title" title="تاریخچه">
+      <span>تاریخچه</span>
+    </WithHeaderLayout>
+  );
 }
 
 export default SearchHistoryPage;

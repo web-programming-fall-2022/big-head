@@ -30,8 +30,8 @@ const routes: RouteObject[] = [
           },
           {
             path: '/favorites',
-            element: <FavoritesPage />
-          }
+            element: <FavoritesPage />,
+          },
         ],
       },
       {
