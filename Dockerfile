@@ -7,7 +7,7 @@ COPY ./pnpm-lock.yaml .
 RUN pnpm install
 COPY . .
 
-RUN pnpm run build
+RUN npm run build
 
 FROM nginx:1.21.0-alpine as production
 ENV NODE_ENV production

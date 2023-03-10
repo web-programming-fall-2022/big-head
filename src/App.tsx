@@ -15,23 +15,21 @@ const customTheme = extendTheme({
 
 const queryClient = new QueryClient();
 
-
 const App = () => {
   return (
     <React.StrictMode>
-    <CssVarsProvider theme={customTheme}>
-      <CssBaseline />
-      <RecoilRoot>
-        <QueryClientProvider client={queryClient}>
-
-      <BenAlert />
-      <RouterProvider router={router} />
-
-        </QueryClientProvider>
-      </RecoilRoot>
-    </CssVarsProvider>
-  </React.StrictMode>
-    
+      <CssVarsProvider theme={customTheme}>
+        <CssBaseline />
+        <RecoilRoot>
+          <QueryClientProvider client={queryClient}>
+            <>
+              <BenAlert />
+              <RouterProvider router={router} />
+            </>
+          </QueryClientProvider>
+        </RecoilRoot>
+      </CssVarsProvider>
+    </React.StrictMode>
   );
 };
 
