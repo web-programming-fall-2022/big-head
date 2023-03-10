@@ -4,7 +4,7 @@ Big head is online product finder with images, you can create your profile, sear
 
 |             Search             |           Results           |
 | :----------------------------: | :-------------------------: |
-| ![startup](/Screenshots/1.png) | ![menu](/Screenshots/2.png) |
+| ![startup](/screenshots/1.png) | ![menu](/screenshots/2.png) |
 
 ## Information
 
