@@ -16,7 +16,7 @@ function SearchHistoryPage() {
     ['searchHistory'],
     () =>
       SearchServiceService.searchServiceGetSearchHistories({
-        limit: 10,
+        limit: 20,
         offset: 0,
       })
   );
@@ -24,10 +24,12 @@ function SearchHistoryPage() {
     <WithHeaderLayout type="title" title="تاریخچه">
       <Sheet
         sx={{
-          padding: '10px',
-          gap: '10px',
           display: 'flex',
           flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '5px',
+          padding: '16px',
         }}>
         {searchHistoryLoading && <CircularProgress />}
         <Typography>
@@ -35,15 +37,16 @@ function SearchHistoryPage() {
             (searchHistory as v1GetSearchHistoriesResponse)!.histories &&
             (searchHistory as v1GetSearchHistoriesResponse)!.histories!.length >
               0 &&
-            (searchHistory as v1GetSearchHistoriesResponse)!.histories
-              ?.length}{' '}
-          جستجوی اخیر شما
+            (searchHistory as v1GetSearchHistoriesResponse)!.histories?.length +
+              ' ' +
+              'جستجوی اخیر شما'}
         </Typography>
         <Typography>
-          {searchHistory &&
+          {((searchHistory &&
             (searchHistory as v1GetSearchHistoriesResponse)!.histories &&
             (searchHistory as v1GetSearchHistoriesResponse)!.histories!
-              .length === 0 &&
+              .length === 0) ||
+            (!searchHistory && !searchHistoryLoading)) &&
             'شما هنوز هیچ جستجویی انجام نداده‌اید'}
         </Typography>
         {(searchHistory &&

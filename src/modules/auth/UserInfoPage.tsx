@@ -1,16 +1,13 @@
 import { Avatar, Button, CircularProgress, Sheet, Typography } from '@mui/joy';
-import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
-import { AuthServiceService, v1UserInfoResponse } from '../../api';
+import { v1UserInfoResponse } from '../../api';
 import LogoutButton from '../../shared/components/Header/LogoutButton';
 import ModeToggle from '../../shared/components/ModeToggle';
+import useUser from '../../shared/hooks/useUser';
 import WithHeaderLayout from '../../shared/layout/WithHeaderLayout';
 
 function UserInfoPage() {
-  const { isLoading: userLoading, data: user } = useQuery(
-    ['user'],
-    AuthServiceService.authServiceUserInfo
-  );
+  const { userLoading, user } = useUser();
   return (
     <WithHeaderLayout type="title" title="پروفایل">
       <Sheet

@@ -7,6 +7,7 @@ import SearchHistoryPage from '../modules/search/SearchHistoryPage';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 import FavoritesPage from '../modules/favorites/FavoritesPage';
+import ErrorPage from '../modules/error';
 
 const routes: RouteObject[] = [
   {
@@ -47,7 +48,7 @@ const routes: RouteObject[] = [
         ],
       },
     ],
-    errorElement: <>Error</>,
+    errorElement: <ErrorPage />,
   },
 ];
 

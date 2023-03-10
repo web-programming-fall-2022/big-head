@@ -1,13 +1,11 @@
 import { Avatar, CircularProgress, Sheet } from '@mui/joy';
-import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
-import { AuthServiceService, v1UserInfoResponse } from '../../../api';
+import { v1UserInfoResponse } from '../../../api';
+import useUser from '../../hooks/useUser';
 
 function ProfileLink() {
-  const { isLoading: userLoading, data: user } = useQuery(
-    ['user'],
-    AuthServiceService.authServiceUserInfo
-  );
+  const { userLoading, user } = useUser();
+
   return (
     <Sheet
       onClick={() => {
@@ -30,21 +28,23 @@ function ProfileLink() {
       {userLoading ? (
         <CircularProgress />
       ) : (
-        <Link
-          to={'user-info'}
-          style={{
-            textDecoration: 'none',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'start',
-            gap: '8px',
-          }}>
-          <Avatar />
-          <span>
-            {(user as v1UserInfoResponse).firstName}{' '}
-            {(user as v1UserInfoResponse).lastName}
-          </span>
-        </Link>
+        user && (
+          <Link
+            to={'user-info'}
+            style={{
+              textDecoration: 'none',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'start',
+              gap: '8px',
+            }}>
+            <Avatar />
+            <span>
+              {(user as v1UserInfoResponse).firstName}{' '}
+              {(user as v1UserInfoResponse).lastName}
+            </span>
+          </Link>
+        )
       )}
     </Sheet>
   );

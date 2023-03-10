@@ -25,7 +25,6 @@ function FavoritesPage() {
           <CircularProgress />
         ) : (
           <>
-            <h4>لیست علاقه‌مندی‌ها</h4>
             {(favorites as v1GetFavoritesResponse).products?.length === 0 && (
               <Typography>لیست علاقه‌مندی‌های شما خالی است.</Typography>
             )}

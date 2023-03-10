@@ -73,7 +73,8 @@ function FavoriteItem(props: Props) {
         sx={{ width: '100%', marginTop: '0.5rem' }}
         color="danger"
         variant="outlined"
-        onClick={deleteItemFromFavorites}>
+        onClick={deleteItemFromFavorites}
+        loading={isLoading}>
         حذف
       </Button>
     </Box>
