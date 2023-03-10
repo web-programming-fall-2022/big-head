@@ -33,9 +33,19 @@ function SearchHistoryPage() {
         {searchHistoryLoading && <CircularProgress />}
         <Typography>
           {searchHistory &&
+            (searchHistory as v1GetSearchHistoriesResponse)!.histories &&
+            (searchHistory as v1GetSearchHistoriesResponse)!.histories!.length >
+              0 &&
             (searchHistory as v1GetSearchHistoriesResponse)!.histories
               ?.length}{' '}
           جستجوی اخیر شما
+        </Typography>
+        <Typography>
+          {searchHistory &&
+            (searchHistory as v1GetSearchHistoriesResponse)!.histories &&
+            (searchHistory as v1GetSearchHistoriesResponse)!.histories!
+              .length === 0 &&
+            'شما هنوز هیچ جستجویی انجام نداده‌اید'}
         </Typography>
         {(searchHistory &&
           (searchHistory as v1GetSearchHistoriesResponse)!.histories?.map(
@@ -43,11 +53,13 @@ function SearchHistoryPage() {
               <Card
                 key={index}
                 sx={{
+                  border: '1px solid #dddddd',
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'start',
                   padding: '10px',
                   borderRadius: '10px',
+                  margin: '10px',
                   boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.24)',
                 }}>
                 <img
@@ -61,8 +73,7 @@ function SearchHistoryPage() {
                 <Divider
                   sx={{
                     width: '100%',
-                    height: '1px',
-
+                    height: '3px',
                     margin: '10px 0',
                   }}
                 />
@@ -71,7 +82,7 @@ function SearchHistoryPage() {
                   sx={{
                     padding: '16px',
                     height: '100%',
-                    maxWidth: '400px',
+                    width: '100%',
                   }}>
                   <Grid
                     container
@@ -81,7 +92,11 @@ function SearchHistoryPage() {
                     spacing={{ xs: 2, md: 3 }}
                     columns={{ xs: 4, sm: 8, md: 12 }}>
                     {item.products!.map(product => (
-                      <ResultItem key={product.id} product={product} />
+                      <ResultItem
+                        key={product.id}
+                        product={product}
+                        maxWith="200px"
+                      />
                     ))}
                   </Grid>
                 </Sheet>
