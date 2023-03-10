@@ -52,7 +52,7 @@ const routes: RouteObject[] = [
 ];
 
 const router = createBrowserRouter(routes, {
-  basename: '/big-head/',
+  basename: '/',
 });
 
 export default router;
