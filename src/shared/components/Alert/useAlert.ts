@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { atom, useRecoilState } from 'recoil';
 
 interface Alert {

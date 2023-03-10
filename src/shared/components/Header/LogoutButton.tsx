@@ -1,5 +1,4 @@
 import { Button } from '@mui/joy';
-import React from 'react';
 import useAuthState from '../../../modules/auth/state/useAuthState';
 
 function LogoutButton() {

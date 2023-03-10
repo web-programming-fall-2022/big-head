@@ -1,4 +1,4 @@
-import { Box, Button, Typography, Grid } from '@mui/joy';
+import { Box, Button, Typography } from '@mui/joy';
 import { useMutation } from '@tanstack/react-query';
 import {
   FavoriteServiceService,

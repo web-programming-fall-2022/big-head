@@ -1,4 +1,3 @@
-import { v1SearchHistory } from './../../swagger/api/models/v1SearchHistory';
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */

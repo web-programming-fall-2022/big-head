@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import authAtom from '../modules/auth/state/AuthAtom';
-import { Navigate, Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 const PublicRoute = () => {
   const [auth] = useRecoilState(authAtom);

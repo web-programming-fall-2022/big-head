@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { SearchServiceService, v1GetSearchHistoriesResponse } from '../../api';
 import WithHeaderLayout from '../../shared/layout/WithHeaderLayout';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
   Card,
   CircularProgress,

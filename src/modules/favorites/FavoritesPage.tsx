@@ -1,4 +1,3 @@
-import React from 'react';
 import { CircularProgress, Grid, Sheet, Typography } from '@mui/joy';
 import WithHeaderLayout from '../../shared/layout/WithHeaderLayout';
 import { useQuery } from '@tanstack/react-query';
