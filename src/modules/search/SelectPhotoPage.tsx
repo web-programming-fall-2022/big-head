@@ -1,5 +1,4 @@
 import React, { useState, useRef } from 'react';
-
 import ReactCrop, { Crop, PixelCrop } from 'react-image-crop';
 import { useDebounceEffect } from '../../shared/utils/useDebounceEffect';
 import 'react-image-crop/dist/ReactCrop.css';

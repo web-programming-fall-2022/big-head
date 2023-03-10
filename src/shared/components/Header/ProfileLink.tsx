@@ -1,6 +1,5 @@
 import { Avatar, CircularProgress, Sheet } from '@mui/joy';
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { AuthServiceService, v1UserInfoResponse } from '../../../api';
 

@@ -2,7 +2,7 @@ import { Button, Sheet, Typography } from '@mui/joy';
 import { useNavigate } from 'react-router-dom';
 import LogoutButton from './LogoutButton';
 import ProfileLink from './ProfileLink';
-
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 export interface HeaderProps {
   type?: 'profile' | 'title';
   title?: string;
@@ -47,7 +47,7 @@ function Header(props: HeaderProps) {
           boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.24)',
         }}>
         <Button onClick={() => navigate(-1)} variant="soft">
-          <span>بازگشت</span>
+          <ArrowForwardIcon></ArrowForwardIcon>
         </Button>
 
         <Typography level="h5" component="h1">

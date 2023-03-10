@@ -1,18 +1,19 @@
-import { Box, Button, Typography, Grid } from '@mui/joy';
+import { Box, Button, Typography } from '@mui/joy';
 import { useMutation } from '@tanstack/react-query';
 import {
   FavoriteServiceService,
   v1AddItemToFavoritesRequest,
   v1Product,
 } from '../../api';
-import useAlert from '../../shared/useAlert';
+import useAlert from '../../shared/components/Alert/useAlert';
 
 interface Props {
   product: v1Product;
+  maxWith?: string;
 }
 
 function ResultItem(props: Props) {
-  const { product } = props;
+  const { product, maxWith } = props;
   const { title, imageUrl, price, rate, status, url } = product;
   const [_, setAlert] = useAlert();
 
@@ -40,13 +41,13 @@ function ResultItem(props: Props) {
         padding: '1rem',
         display: '',
         flexDirection: 'column',
-        maxWidth: '300px',
+        maxWidth: maxWith ?? '300px',
         alignItems: 'center',
       }}>
       <img
         src={imageUrl}
         alt="image"
-        style={{ width: '100%', padding: '8px', borderRadius: '8px 8px 0 0' }}
+        style={{ width: '100%', borderRadius: '8px 8px 0 0' }}
       />
       <Typography
         level="body1"

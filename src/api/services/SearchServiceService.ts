@@ -12,6 +12,7 @@ import type { v1SearchResponse } from '../models/v1SearchResponse';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
+import { v1GetSearchHistoriesResponse } from '../models/v1GetSearchHistoriesResponse';
 
 export class SearchServiceService {
   /**
@@ -71,6 +72,33 @@ export class SearchServiceService {
       method: 'POST',
       url: '/api/v1/search-async',
       body: body,
+      errors: {
+        404: `Returned when the resource does not exist.`,
+      },
+    });
+  }
+
+  /**
+   * @param offset
+   * @param limit
+   * @returns v1GetSearchHistoriesResponse A successful response.
+   * @returns runtimeError An unexpected error response.
+   * @throws ApiError
+   */
+  public static searchServiceGetSearchHistories({
+    offset,
+    limit,
+  }: {
+    offset?: number;
+    limit?: number;
+  }): CancelablePromise<v1GetSearchHistoriesResponse | runtimeError> {
+    return __request(OpenAPI(), {
+      method: 'GET',
+      url: '/api/v1/search-histories',
+      query: {
+        offset: offset,
+        limit: limit,
+      },
       errors: {
         404: `Returned when the resource does not exist.`,
       },

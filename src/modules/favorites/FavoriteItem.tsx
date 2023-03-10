@@ -1,7 +1,7 @@
 import { Box, Button, Typography, Grid } from '@mui/joy';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { FavoriteServiceService, v1Product } from '../../api';
-import useAlert from '../../shared/useAlert';
+import useAlert from '../../shared/components/Alert/useAlert';
 
 interface Props {
   product: v1Product;
@@ -41,7 +41,7 @@ function FavoriteItem(props: Props) {
       <img
         src={imageUrl}
         alt="image"
-        style={{ height: '100px', padding: '8px', borderRadius: '8px 8px 0 0' }}
+        style={{ height: '100px', borderRadius: '8px 8px 0 0' }}
       />
       <Box sx={{ maxWidth: '200px', display: 'flex', flexDirection: 'column' }}>
         <Typography

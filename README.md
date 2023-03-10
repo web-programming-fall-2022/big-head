@@ -2,7 +2,14 @@
 
 Big head is online product finder with images, you can create your profile, search products, save your favorites and stuff.
 
-## Getting Started
+|             Search             |           Results           |
+| :----------------------------: | :-------------------------: |
+| ![startup](/screenshots/1.png) | ![menu](/screenshots/2.png) |
+
+## Information
+
+Big head will deploy main branch automatically on github pages which you can find here:
+[BigHead](https://web-programming-fall-2022.github.io/big-head/)
 
 [Technologies and reasons](https://docs.google.com/document/d/1ytCn95e_glMUcIp26JDEkreeQs4imNxvm8WECdNCgW0/edit?usp=sharing) Doc in persian.
 

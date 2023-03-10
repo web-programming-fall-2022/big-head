@@ -15,10 +15,13 @@ function ModeToggle() {
   return (
     <Button
       variant="outlined"
+      sx={{
+        width: '100%',
+      }}
       onClick={() => {
         setMode(mode === 'light' ? 'dark' : 'light');
       }}>
-      {mode === 'light' ? 'Turn dark' : 'Turn light'}
+      {mode === 'light' ? 'تم شب' : 'تم روز'}
     </Button>
   );
 }
