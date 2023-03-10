@@ -13,22 +13,27 @@ const AlertAtom = atom<Alert | null>({
 
 const useAlert: () => [Alert | null, (message: String | null) => void] = () => {
   const [alertState, setAlert] = useRecoilState(AlertAtom);
+  let cancelTimeout: NodeJS.Timeout | undefined;
+  let dismissTimeout: NodeJS.Timeout | undefined;
 
   const setAlertState = (message: String | null) => {
     if (message === null) {
       return;
     }
+
     setAlert({
       message,
       show: true,
     });
-    setTimeout(() => {
+    if (cancelTimeout) clearTimeout(cancelTimeout);
+    if (dismissTimeout) clearTimeout(dismissTimeout);
+    dismissTimeout = setTimeout(() => {
       setAlert({
         message,
         show: false,
       });
     }, 3000);
-    setTimeout(() => {
+    cancelTimeout = setTimeout(() => {
       setAlert({
         message: null,
         show: false,

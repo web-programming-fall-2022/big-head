@@ -6,14 +6,7 @@ function LogoutButton() {
   const [_, __, logout] = useAuthState();
 
   return (
-    <Button
-      type="button"
-      variant="plain"
-      sx={{
-        width: '15%',
-      }}
-      color="danger"
-      onClick={logout}>
+    <Button type="button" variant="plain" color="danger" onClick={logout}>
       خروج
     </Button>
   );

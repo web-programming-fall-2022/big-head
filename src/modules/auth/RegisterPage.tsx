@@ -9,7 +9,7 @@ import {
 import ModeToggle from '../../shared/components/ModeToggle';
 import { Link, useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
-import useAlert from '../../shared/useAlert';
+import useAlert from '../../shared/components/Alert/useAlert';
 import { AuthServiceService, v1RegisterRequest } from '../../api';
 import useAuthState from './state/useAuthState';
 import Auth from './types/Auth';

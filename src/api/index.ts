@@ -1,3 +1,4 @@
+import { v1SearchHistory } from './../../swagger/api/models/v1SearchHistory';
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -27,6 +28,8 @@ export type { v1RegisterResponse } from './models/v1RegisterResponse';
 export type { v1SearchParams } from './models/v1SearchParams';
 export type { v1SearchRequest } from './models/v1SearchRequest';
 export type { v1SearchResponse } from './models/v1SearchResponse';
+export type { v1SearchHistory } from './models/v1SearchHistory';
+export type { v1GetSearchHistoriesResponse } from './models/v1GetSearchHistoriesResponse';
 export type { v1UserInfoRequest } from './models/v1UserInfoRequest';
 export type { v1UserInfoResponse } from './models/v1UserInfoResponse';
 export type { v1AddItemToFavoritesRequest } from './models/v1AddItemToFavoritesRequest';
