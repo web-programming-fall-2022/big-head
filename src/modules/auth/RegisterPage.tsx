@@ -105,7 +105,7 @@ const RegisterPage = () => {
               <Input
                 name="phone_number"
                 type="tel"
-                placeholder="+989931203930"
+                placeholder="09931203930"
                 sx={{ direction: 'ltr' }}
               />
             </FormControl>
