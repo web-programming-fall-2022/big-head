@@ -180,7 +180,7 @@ export default function SelectPhotoPage() {
                       objectFit: 'contain',
                       width: '256px',
                       height: '256px',
-                      // display: 'none',
+                      display: 'none',
                     }}
                   />
                 )}
